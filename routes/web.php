@@ -11,9 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::prefix('admin')->group(function () {
     Route::get('home', function () {
@@ -25,3 +22,14 @@ Route::prefix('admin')->group(function () {
     Route::resource('category', 'CategoryController');
     Route::resource('order', 'OrderController');
 });
+
+Auth::routes();
+//verifikasi email user
+Auth::routes(['verify' => true]);
+
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/account', function (){
+    return view('client.register', ['currentpage' => 'register']);
+})->name('account');
+
+// Route::get('/home', 'HomeController@index')->name('home');
