@@ -39,6 +39,6 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        return redirect('/');
+        return redirect()->route('home');
     }
 }

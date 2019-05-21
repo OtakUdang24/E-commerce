@@ -37,4 +37,9 @@ class HomeController extends Controller
         return view('client.home', ['currentpage' => 'home']);
         
     }
+
+    public function register()
+    {
+        return view('client.register', ['currentpage' => 'register']);
+    }
 }

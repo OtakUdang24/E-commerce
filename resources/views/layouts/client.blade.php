@@ -84,6 +84,11 @@
                             <!-- / header top left -->
                             <div class="aa-header-top-right">
                                 <ul class="aa-head-top-nav-right">
+                                    @guest
+                                    
+                                    @else
+                                    <li><a href="{{ route('homeadmin') }}">Hallo Admin</a></li>
+                                    @endguest
                                     <li><a href="account.html">My Account</a></li>
                                     <li class="hidden-xs"><a href="wishlist.html">Wishlist</a></li>
                                     <li class="hidden-xs"><a href="cart.html">My Cart</a></li>
