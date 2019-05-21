@@ -186,7 +186,8 @@
         <div class="modal-body">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           <h4>Login or Register</h4>
-          <form class="aa-login-form" action="">
+          <form method="post"  class="aa-login-form" action="{{ route('login') }}">
+            @csrf
             <label for="">Username or Email address<span>*</span></label>
             <input type="text" placeholder="Username or email">
             <label for="">Password<span>*</span></label>
@@ -195,7 +196,7 @@
             <label for="rememberme" class="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
             <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
             <div class="aa-register-now">
-              Don't have an account?<a href="account.html">Register now!</a>
+              Don't have an account?<a href="{{ route('account') }}">Register now!</a>
             </div>
           </form>
         </div>                        

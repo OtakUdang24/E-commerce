@@ -40,6 +40,6 @@ class VerificationController extends Controller
     }
 
     protected function redirectTo() {
-        return route('/');
+        return route('home');
     }
 }

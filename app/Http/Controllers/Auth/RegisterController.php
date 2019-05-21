@@ -48,6 +48,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        
         return Validator::make($data, [
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -62,9 +63,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $count = User::count();
+        // dd($count);
+        if($count === 0){
+            return User::create([
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']), 
+                'role' => 'admin'
+            ]);
+        }
+    }
+
+    public function showRegistrationForm()
+    {
+        return redirect()->route('home');
     }
 }
