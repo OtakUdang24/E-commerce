@@ -14,3 +14,14 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::prefix('admin')->group(function () {
+    Route::get('home', function () {
+        return view('admin.home', ['currentpage' => 'home']);
+    });
+    Route::resource('product', 'ProductController');
+    Route::resource('user', 'UserController');
+    Route::resource('customer', 'CustomerController');
+    Route::resource('category', 'CategoryController');
+    Route::resource('order', 'OrderController');
+});
