@@ -62,49 +62,72 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body" style="">
-                    <form role="form" id="addproduct">
+                    <form method="POST" action="{{ route('product.store') }}" role="form" id="addproduct">
+                        @csrf
                         <div class="box-body" style="">
                             <div class="form-group">
                                 <label for="exampleInputCode">Code</label>
                                 <input type="text" readonly class="form-control" id="exampleInputCode"
                                     placeholder="BRG-0001">
                             </div>
-                            <div class="form-group">
-                                <label for="exampleInputName">Name</label>
-                                <input type="text" class="form-control" id="exampleInputName" placeholder="Name">
+                            <div class="form-group {{ ($errors->first('name')) ? 'has-error'  : ''}}">
+                                <label class="control-label" for="inputError"><i class="{{ ($errors->first('name')) ? 'fa fa-times-circle-o'  : ''}}"></i> Name</label>
+                                <input name="name" type="text" class="form-control" id="inputError" value="{{ old('username') }}" placeholder="Name">
+                                @if($errors->first('name'))
+                                    <span class="help-block">{{ $errors->first('name') }}</span>
+                                @endif
                             </div>
-                            <div class="form-group">
-                                <label>Description</label>
-                                <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                            <div class="form-group {{ ($errors->first('description')) ? 'has-error'  : ''}}">
+                                <label class="control-label" for="inputError"><i class="{{ ($errors->first('description')) ? 'fa fa-times-circle-o'  : ''}}"></i> Description</label>
+                                <textarea class="form-control" name="description" value="{{ old('description') }}" id="inputError" rows="3" placeholder="Enter ..."></textarea>
+                                @if($errors->first('description'))
+                                    <span class="help-block">{{ $errors->first('description') }}</span>
+                                @endif
                             </div>
-                            <div class="form-group">
-                                <label for="exampleInputStock">Stock</label>
-                                <input type="text" class="form-control" id="exampleInputStock" placeholder="Stock">
+                            <div class="form-group {{ ($errors->first('stock')) ? 'has-error'  : ''}}">
+                                <label class="control-label" for="inputError"><i class="{{ ($errors->first('stock')) ? 'fa fa-times-circle-o'  : ''}}"></i> Stock</label>
+                                <input type="text" class="form-control" name="stock" value="{{ old('stock') }}" id="inputError" placeholder="Stock">
+                                @if($errors->first('stock'))
+                                    <span class="help-block">{{ $errors->first('stock') }}</span>
+                                @endif
                             </div>
-                            <div class="form-group">
-                                <label for="exampleInputPhoto">Photo</label>
+                            <div class="form-group {{ ($errors->first('photo')) ? 'has-error'  : ''}}">
+                                
                                 <div class="col-xs-12">
+                                <label class="control-label" for="imgInp"><i class="{{ ($errors->first('photo')) ? 'fa fa-times-circle-o'  : ''}}"></i> Photo</label>
+                                </div>
                                     <img id="preview" width="200" height="200" />
                                     <input type="file" style="margin-top: 20px;" name="cover" id="imgInp">
-
-                                    <p class="help-block">Photo Product.</p>
+                                    @if($errors->first('photo'))
+                                    <span class="help-block">{{ $errors->first('photo') }}</span>
+                                @endif
+                                <!-- </div> -->
+                            </div>
+                            <div class="form-group {{ ($errors->first('price')) ? 'has-error'  : ''}}">
+                                <div class="input-group">
+                                    <!-- <label class="control-label" for="inpurError"><i class="fa fa-times-circle-o"></i> Price</label> -->
+                                    <span class="input-group-addon">Rp</span>
+                                    <input type="text" name="price" value="{{ old('price') }}" class="form-control">
+                                    <span class="input-group-addon">.00</span> 
                                 </div>
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon">Rp</span>
-                                <input type="text" class="form-control">
-                                <span class="input-group-addon">.00</span>
+                            @if($errors->first('price'))
+                                    <span class="help-block">{{ $errors->first('price') }}</span>
+                                @endif                          
                             </div>
 
-                            <div class="form-group">
-                                <label>Categories</label>
-                                <select class="form-control">
-                                    <option>option 1</option>
-                                    <option>option 2</option>
-                                    <option>option 3</option>
-                                    <option>option 4</option>
-                                    <option>option 5</option>
+                
+                            <div class="form-group {{ ($errors->first('category_id')) ? 'has-error'  : ''}}">
+                                <label class="control-label" for="imgInp"><i class="{{ ($errors->first('category_id')) ? 'fa fa-times-circle-o'  : ''}}"></i> Category</label>
+                                <select name="category_id" class="form-control">
+                                    <option></option>
+                                    <option value="1">option 2</option>
+                                    <option value="2">option 3</option>
+                                    <option value="3">option 4</option>
+                                    <option value="4">option 5</option>
                                 </select>
+                                @if($errors->first('category_id'))
+                                    <span class="help-block">{{ $errors->first('category_id') }}</span>
+                                @endif
                             </div>
                         </div>
                         <!-- /.box-body -->

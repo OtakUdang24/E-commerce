@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class ProductController extends Controller
 {
@@ -16,6 +19,22 @@ class ProductController extends Controller
         return view('admin.product', ['root' => 'masterdata','currentpage' => 'product']);
     }
 
+    public function convertdate(){
+        date_default_timezone_set('Asia/Jakarta');
+        $date = date('dmy');
+        return $date;
+    }
+
+    public function autoNumber()
+    {
+        
+        // $q = DB::table('products')->max('code');
+        $q = DB::table('products')
+          ->select(\DB::raw('max(RIGHT(code, 6)) as result'))
+          ->get();
+        dd($q); 
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -23,7 +42,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        // 
     }
 
     /**
@@ -34,7 +53,25 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $messages = [
+            'name.required' => 'Name field is required.',
+            'description.required' => 'Description field is required.',
+            'stock.required' => 'Stock field is required.',
+            
+        ];
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:100',
+            'description' => 'required',
+            'stock' => 'required|integer',
+            'price' => 'required|integer',
+            'category_id' => 'required'
+        ],$messages);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)
+            ->withInput();
+        }
+
     }
 
     /**
